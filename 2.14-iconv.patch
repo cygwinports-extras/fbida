@@ -1,0 +1,19 @@
+--- origsrc/fbida-2.14/meson.build	2017-08-30 05:48:03.000000000 -0500
++++ src/fbida-2.14/meson.build	2018-02-05 15:06:44.807926800 -0600
+@@ -29,6 +29,7 @@ webp_dep     = dependency('libwebp', req
+ # other library deps
+ cc           = meson.get_compiler('c')
+ jpeg_dep     = cc.find_library('jpeg')
++iconv_dep    = cc.find_library('iconv', required : false)
+ math_dep     = cc.find_library('m', required : false)
+ pcd_dep      = cc.find_library('pcd', required : false)
+ gif_dep      = cc.find_library('gif', required : false)
+@@ -149,7 +150,7 @@ ida_srcs     = [ 'ida.c', 'man.c', 'hex.
+                  trans_src, read_srcs, write_srcs,
+                  'rd/read-xwd.c', 'rd/read-xpm.c',
+                  ida_ad, ida_logo ]
+-ida_deps     = [ pixman_dep, exif_dep, image_deps, math_dep,
++ida_deps     = [ pixman_dep, exif_dep, iconv_dep, image_deps, math_dep,
+                  motif_dep, xpm_dep, xt_dep, xext_dep, x11_dep ]
+ 
+ if motif_dep.found()

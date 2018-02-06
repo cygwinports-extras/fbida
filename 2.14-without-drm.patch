@@ -1,0 +1,46 @@
+--- origsrc/fbida-2.14/meson.build	2017-08-30 05:48:03.000000000 -0500
++++ src/fbida-2.14/meson.build	2018-02-05 15:06:44.807926800 -0600
+@@ -17,9 +17,9 @@ fontconf_dep = dependency('fontconfig')
+ pixman_dep   = dependency('pixman-1')
+ poppler_dep  = dependency('poppler-glib')
+ cairo_dep    = dependency('cairo')
+-cairo_gl_dep = dependency('cairo-gl')
+-drm_dep      = dependency('libdrm')
+-gbm_dep      = dependency('gbm')
++cairo_gl_dep = dependency('cairo-gl', required : false)
++drm_dep      = dependency('libdrm', required : false)
++gbm_dep      = dependency('gbm', required : false)
+ epoxy_dep    = dependency('epoxy')
+ exif_dep     = dependency('libexif')
+ png_dep      = dependency('libpng')
+@@ -90,12 +91,14 @@ fbi_deps     = [ freetype_dep, fontconf_
+                  exif_dep, image_deps,
+                  math_dep ]
+ 
++if drm_dep.found()
+ executable('fbi',
+            sources             : fbi_srcs,
+            dependencies        : fbi_deps,
+            include_directories : trans_inc,
+            install             : true)
+ install_man('man/fbi.1')
++endif
+ 
+ # build exiftran
+ exiftr_srcs  = [ 'exiftran.c', 'genthumbnail.c', 'jpegtools.c',
+@@ -121,6 +124,7 @@ fbpdf_srcs   = [ 'fbpdf.c', 'parseconfig
+ fbpdf_deps   = [ drm_dep, gbm_dep, epoxy_dep,
+                  pixman_dep, poppler_dep, cairo_dep, cairo_gl_dep ]
+ 
++if drm_dep.found()
+ executable('fbpdf',
+            sources             : fbpdf_srcs,
+            dependencies        : fbpdf_deps,
+@@ -128,6 +132,7 @@ executable('fbpdf',
+ 
+ # build kbdtest
+ executable('kbdtest', [ 'kbdtest.c', 'kbd.c' ])
++endif
+ 
+ # build ida
+ mkfallback   = find_program('scripts/fallback.pl')

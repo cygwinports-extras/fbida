@@ -1,0 +1,29 @@
+inherit meson
+
+NAME="fbida"
+VERSION=2.14
+RELEASE=1
+CATEGORY="Graphics"
+SUMMARY="Motif-based image viewer"
+DESCRIPTION="Ida is a small and fast image viewer, motif-based.  Some basic
+editing functions are available too."
+HOMEPAGE="https://www.kraxel.org/blog/linux/fbida/"
+SRC_URI="https://www.kraxel.org/releases/fbida/fbida-${VERSION}.tar.gz"
+PATCH_URI="
+	2.14-iconv.patch
+	2.14-without-drm.patch
+	2.14-x11resdir.patch
+"
+
+PKG_NAMES="${NAME} exiftran"
+fbida_CONTENTS="
+	etc/X11/app-defaults/Ida
+	usr/bin/ida.exe
+	usr/share/doc/${NAME}
+	usr/share/man/man1/ida.1*
+"
+exiftran_SUMMARY="JPEG transformation tool with EXIF support"
+exiftran_CONTENTS="
+	usr/bin/exiftran.exe
+	usr/share/man/man1/exiftran.1*
+"

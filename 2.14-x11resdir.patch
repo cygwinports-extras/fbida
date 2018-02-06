@@ -1,0 +1,10 @@
+--- origsrc/fbida-2.14/scripts/x11resdir.sh	2017-08-30 05:48:03.000000000 -0500
++++ src/fbida-2.14/scripts/x11resdir.sh	2018-02-05 15:10:13.529663400 -0600
+@@ -5,6 +5,7 @@ for dir in \
+ 	$prefix/*/X11/app-defaults		\
+ 	$prefix/X11R*/*/X11/app-defaults	\
+ 	/usr/*/X11/app-defaults			\
++	/etc/X11/app-defaults			\
+ 	/etc/app-defaults			\
+ ; do
+ 	if test -d "$dir"; then
